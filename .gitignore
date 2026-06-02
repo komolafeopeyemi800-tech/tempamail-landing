@@ -1,0 +1,11 @@
+# Wrangler / Cloudflare local
+.wrangler/
+.dev.vars
+
+# OS & editors
+.DS_Store
+Thumbs.db
+*.log
+
+# Dependencies (if you ever add npm scripts)
+node_modules/
