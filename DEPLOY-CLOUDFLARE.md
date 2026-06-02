@@ -14,7 +14,50 @@ Your site is a static HTML/CSS/JS project — ideal for [Cloudflare Pages](https
    - **Build output directory:** `/` or `.`
 5. Click **Save and Deploy**.
 
+**Important:** Do **not** set a custom **Deploy command** like `npx wrangler deploy`. That command is for **Workers**, not static Pages. See [Fix deploy errors](#fix-deploy-errors-wrangler-deploy) below.
+
 After deploy you get a URL like `https://tempamail-landing.pages.dev`.
+
+### Fix deploy errors (`wrangler deploy`)
+
+If your build log shows:
+
+```text
+Executing user deploy command: npx wrangler deploy
+Missing entry-point to Worker script or to assets directory
+```
+
+**Cause:** Cloudflare is trying to deploy a **Worker**, but this repo is a **static HTML site** (no `src/index.ts`, no Worker).
+
+**Fix in the Cloudflare dashboard:**
+
+1. Open your **Pages** project (not Workers).
+2. Go to **Settings** → **Build** (or **Builds & deployments**).
+3. Set:
+
+| Setting | Correct value |
+|---------|----------------|
+| Framework preset | **None** |
+| Build command | *(leave completely empty)* |
+| Build output directory | `.` or `/` |
+| **Deploy command** | *(delete / leave empty)* — **do not use** `npx wrangler deploy` |
+
+4. **Save**, then **Retry deployment** or push a small commit to GitHub.
+
+**Wrong vs right:**
+
+| Wrong | Right |
+|-------|--------|
+| `npx wrangler deploy` | *(no deploy command — Cloudflare uploads static files automatically)* |
+| Workers project | **Pages** project connected to Git |
+
+**Only if** your dashboard forces a deploy command, use:
+
+```bash
+npx wrangler pages deploy . --project-name=YOUR_PAGES_PROJECT_NAME
+```
+
+Replace `YOUR_PAGES_PROJECT_NAME` with the exact name in Cloudflare Pages (e.g. `tempamail-landing`).
 
 ### Custom domain (tempamail.org)
 
