@@ -1,17 +1,17 @@
 # Tempamail.org — static site on Cloudflare Pages
 #
-# If your dashboard "Deploy command" is: npx wrangler deploy
-#   → [assets] below makes that command succeed (uploads this folder).
+# Site files live in ./public (not repo root) so .git is never uploaded.
 #
-# Best setup (no deploy command in dashboard):
-#   Build command: empty | Output: . | Deploy command: empty
+# Dashboard settings:
+#   Build command: (empty)
+#   Build output directory: public
+#   Deploy command: npx wrangler deploy   OR leave empty
 #
-# CLI Pages deploy:
-#   npx wrangler pages deploy . --project-name=tempamail-landing
+# CLI: npx wrangler pages deploy ./public --project-name=tempamail-landing
 
 name = "tempamail-landing"
 compatibility_date = "2024-06-01"
-pages_build_output_dir = "."
+pages_build_output_dir = "./public"
 
 [assets]
-directory = "."
+directory = "./public"

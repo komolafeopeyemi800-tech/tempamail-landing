@@ -5,6 +5,6 @@
   "description": "Tempamail.org static landing page",
   "scripts": {
     "deploy": "wrangler deploy",
-    "pages:deploy": "wrangler pages deploy . --project-name=tempamail-landing"
+    "pages:deploy": "wrangler pages deploy ./public --project-name=tempamail-landing"
   }
 }
