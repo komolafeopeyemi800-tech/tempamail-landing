@@ -34,13 +34,28 @@ wrangler.toml       Pages project name (optional CLI)
 
 Pages project → **Custom domains** → add `tempamail.org` (and `www` if needed).
 
-### If the build fails
+### If the build fails (`Missing entry-point to Worker script`)
 
-**Wrong:** `npx wrangler deploy` (Workers — not for this site)
+Your dashboard may still run `npx wrangler deploy`. This repo’s `wrangler.toml` now includes:
 
-**Right:** Leave build and deploy commands empty. Cloudflare uploads static files automatically.
+```toml
+[assets]
+directory = "."
+```
 
-CLI alternative:
+That tells Wrangler to upload the static site from the project root. **Retry the deployment** after pulling the latest `master`.
+
+**Best setup (fastest):** leave **Build command** and **Deploy command** empty; set **Build output directory** to `.` only.
+
+**Alternative deploy commands** (if you must use one):
+
+| Command | When to use |
+|---------|-------------|
+| *(empty)* | Recommended for Git-connected Pages |
+| `npx wrangler deploy` | Works with current `wrangler.toml` |
+| `npm run pages:deploy` | Explicit Pages deploy |
+
+CLI from your PC:
 
 ```bash
 npx wrangler login

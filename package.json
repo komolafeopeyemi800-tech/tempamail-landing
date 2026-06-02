@@ -1,0 +1,10 @@
+{
+  "name": "tempamail-landing",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Tempamail.org static landing page",
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "pages:deploy": "wrangler pages deploy . --project-name=tempamail-landing"
+  }
+}

@@ -1,11 +1,17 @@
-# Cloudflare Pages — static HTML site (NOT a Worker)
+# Tempamail.org — static site on Cloudflare Pages
 #
-# GitHub deploy (recommended): leave Build command AND Deploy command EMPTY in the dashboard.
-# Do NOT use: npx wrangler deploy  (that fails — Workers only)
+# If your dashboard "Deploy command" is: npx wrangler deploy
+#   → [assets] below makes that command succeed (uploads this folder).
 #
-# CLI deploy only:
+# Best setup (no deploy command in dashboard):
+#   Build command: empty | Output: . | Deploy command: empty
+#
+# CLI Pages deploy:
 #   npx wrangler pages deploy . --project-name=tempamail-landing
 
 name = "tempamail-landing"
 compatibility_date = "2024-06-01"
 pages_build_output_dir = "."
+
+[assets]
+directory = "."
