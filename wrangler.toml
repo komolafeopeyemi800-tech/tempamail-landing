@@ -1,0 +1,6 @@
+# Cloudflare Pages — static site (no build step)
+# Deploy via dashboard (GitHub) or: npx wrangler pages deploy . --project-name=tempamail-landing
+
+name = "tempamail-landing"
+compatibility_date = "2024-06-01"
+pages_build_output_dir = "."
