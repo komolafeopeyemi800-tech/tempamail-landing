@@ -79,16 +79,18 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
     const address = normalizeAddress(url.searchParams.get('address'), env);
+    // Anything older than this is expired: hidden immediately, purged by the hourly cron.
+    const cutoff = Date.now() - (Number(env.RETENTION_HOURS) || 24) * 60 * 60 * 1000;
 
     if (url.pathname === '/api/inbox' && request.method === 'GET') {
       if (!address) return json({ error: 'invalid address' }, 400);
       const { results } = await env.DB.prepare(
         `SELECT id, from_addr, from_name, subject, received_at,
                 substr(text, 1, 140) AS preview
-           FROM messages WHERE address = ?1
+           FROM messages WHERE address = ?1 AND received_at >= ?3
           ORDER BY received_at DESC LIMIT ?2`
       )
-        .bind(address, MAX_PER_ADDRESS)
+        .bind(address, MAX_PER_ADDRESS, cutoff)
         .all();
       return json({ address, messages: results });
     }
@@ -98,9 +100,9 @@ export default {
       if (!address || !id) return json({ error: 'invalid request' }, 400);
       const row = await env.DB.prepare(
         `SELECT id, from_addr, from_name, subject, text, html, received_at
-           FROM messages WHERE address = ?1 AND id = ?2`
+           FROM messages WHERE address = ?1 AND id = ?2 AND received_at >= ?3`
       )
-        .bind(address, id)
+        .bind(address, id, cutoff)
         .first();
       return row ? json(row) : json({ error: 'not found' }, 404);
     }
