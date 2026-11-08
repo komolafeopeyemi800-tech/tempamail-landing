@@ -1,0 +1,125 @@
+<section class="hero">
+  <div class="wrap hero-grid">
+    <!-- Reserved for a Google AdSense unit. Intentionally empty until AdSense is approved. -->
+    <div class="ad ad--rect" data-ad-slot="hero-left"></div>
+
+    <div class="addr-card">
+      <h1>Your Free Temporary Email Address</h1>
+      <div class="addr-row">
+        <span class="addr-text" id="emailAddress" aria-live="polite">loading…</span>
+        <button type="button" class="icon-btn js-copy" aria-label="Copy email address" title="Copy">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+        </button>
+      </div>
+      <p class="addr-note">Use this address for sign-ups and verification codes. Anything sent to it appears below within seconds and is deleted after 24 hours. Receive-only.</p>
+    </div>
+
+    <div class="ad ad--rect" data-ad-slot="hero-right"></div>
+  </div>
+</section>
+
+<div class="pillbar">
+  <div class="wrap">
+    <button type="button" class="pill js-copy">
+      <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+      <span id="copyLabel">Copy</span>
+    </button>
+    <button type="button" class="pill" id="refreshBtn">
+      <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>
+      Refresh
+    </button>
+    <button type="button" class="pill" id="newBtn">
+      <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg>
+      Change
+    </button>
+    <button type="button" class="pill pill--danger" id="deleteBtn">
+      <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      Delete
+    </button>
+  </div>
+</div>
+
+<div class="wrap main-grid">
+  <div class="ad ad--rail" data-ad-slot="rail-left"></div>
+
+  <div>
+    <div class="ad ad--leader" data-ad-slot="above-inbox" style="margin-bottom:20px"></div>
+
+    <section class="inbox" aria-label="Inbox">
+      <div class="inbox-bar"><span>SENDER</span><span>SUBJECT</span><span>VIEW</span></div>
+      <div class="inbox-sub"><span>Auto-refresh in <strong id="refreshTimer">10</strong>s</span><span>Messages expire after 24 hours</span></div>
+      <div id="inboxBody">
+        <div class="inbox-empty" id="inboxEmpty">
+          <svg viewBox="0 0 24 24" width="56" height="56" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11L2 12v6a2 2 0 002 2h16a2 2 0 002-2v-6l-3.45-6.89A2 2 0 0016.76 4H7.24a2 2 0 00-1.79 1.11z"/></svg>
+          <strong>Your inbox is empty</strong>
+          <span>Waiting for incoming emails</span>
+        </div>
+        <ul class="msg-list" id="msgList" hidden></ul>
+        <div class="msg-view" id="msgView" hidden>
+          <button type="button" class="msg-back" id="msgBack">&larr; Back to inbox</button>
+          <h2 class="msg-subject" id="msgSubject"></h2>
+          <p class="msg-meta" id="msgMeta"></p>
+          <iframe class="msg-frame" id="msgFrame" sandbox referrerpolicy="no-referrer" title="Email content"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <div class="ad ad--inline" data-ad-slot="below-inbox" style="margin-top:20px"></div>
+  </div>
+
+  <div class="ad ad--rail" data-ad-slot="rail-right"></div>
+</div>
+
+<section class="section">
+  <div class="wrap">
+    <h2 class="section-title">What Is a Disposable Temporary Email?</h2>
+    <p class="lead">A disposable email is a free address you can use without registering and without handing over your real inbox. You paste it into a sign-up form, the website sends its confirmation message to it, and you read that message here. Nothing is tied to your name, and the address and everything it received are deleted automatically after 24 hours. It is the easiest way to avoid newsletters, marketing lists and data-broker mail from sites you only need once. <a href="/articles/what-is-a-temporary-email-address/">Read the full explanation</a>.</p>
+  </div>
+</section>
+
+<section class="section section--white">
+  <div class="wrap">
+    <h2 class="section-title">Popular Articles</h2>
+    {{ARTICLE_CARDS}}
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap wrap--narrow prose">
+    <h2>How Tempamail.org works</h2>
+    <p>When you open the site, your browser generates a random address such as <code>k3x9a1m0pq@tempamail.org</code> and remembers it on your device so a page refresh does not change it. Every address at our domain is valid, so there is nothing to create or sign up for.</p>
+    <p>When a website sends mail to that address, the message is delivered to our mail provider (Cloudflare Email Routing), handed to a small program that reads the sender, subject and body, and saved to a database under the recipient address. This page asks for new messages every ten seconds. After 24 hours the message is removed.</p>
+
+    <h2>What to know before you use it</h2>
+    <ul>
+      <li><strong>It is public by design.</strong> Anyone who knows or guesses your exact address can read its inbox. The random part is long enough that guessing is impractical, but never use a temporary address for anything private.</li>
+      <li><strong>It is receive-only.</strong> You cannot send mail from these addresses.</li>
+      <li><strong>It is temporary.</strong> Messages are deleted after 24 hours, and there is no way to recover them. Do not use a temporary address for banking, account recovery, or any service you want to keep.</li>
+      <li><strong>Some websites block disposable domains.</strong> If a site refuses the address, that is the site's choice. Please respect it rather than trying to get around it.</li>
+      <li><strong>Remote images are blocked</strong> when you open a message here, so senders cannot use tracking pixels to see that you read it. Scripts are disabled as well.</li>
+    </ul>
+
+    <h2>Good uses</h2>
+    <ul>
+      <li>Downloading a free guide or template that asks for an email first</li>
+      <li>Joining a forum or app you want to try once</li>
+      <li>Testing sign-up and email flows while building a website or app</li>
+      <li>Getting a verification code from a site you do not trust with your real address</li>
+    </ul>
+    <p>See <a href="/articles/when-to-use-a-disposable-email/">when to use a disposable email, and when not to</a>.</p>
+  </div>
+</section>
+
+<section class="section section--white">
+  <div class="wrap">
+    <h2 class="section-title">Frequently Asked Questions</h2>
+    <div class="faq">
+      <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>Is Tempamail.org free?</span><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-a"><p>Yes. There is nothing to buy and no account to create. The site is supported by advertising.</p></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>How long do messages stay in the inbox?</span><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-a"><p>24 hours. After that they are hidden immediately and permanently deleted by an hourly cleanup. You can also press Delete to remove all messages for your address right away.</p></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>Can anyone else read my messages?</span><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-a"><p>Anyone who has your exact address can open its inbox, because there is no password. Addresses are random and ten characters long, so they are hard to guess, but you should never receive anything sensitive here.</p></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>Can I send email from my temporary address?</span><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-a"><p>No. The service only receives mail. Blocking outgoing mail keeps the domain from being used for spam or impersonation.</p></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>Why did a website say my email is not allowed?</span><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-a"><p>Many sites keep lists of disposable-email domains and refuse them. That is the website's rule, not a fault with the address. Use a different address for that site.</p></div></div>
+      <div class="faq-item"><button class="faq-q" aria-expanded="false"><span>What do you store about me?</span><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-a"><p>The messages sent to your address, for 24 hours. We do not ask for a name or account. Our infrastructure provider (Cloudflare) and advertising partners may process technical data such as your IP address. The full details are in the <a href="/privacy/">Privacy Policy</a>.</p></div></div>
+    </div>
+  </div>
+</section>

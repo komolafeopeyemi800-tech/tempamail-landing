@@ -1,0 +1,21 @@
+<p>Tempamail.org is a free service that gives you a temporary email address so you can sign up for websites, receive a confirmation code and keep your real inbox free of marketing mail. There is nothing to install and no account to create.</p>
+
+<h2>What we do</h2>
+<p>We run a mail domain that accepts mail for any address at that domain. When you open the site, your browser creates a random address. Anything sent to it appears in the inbox on the home page, and it is deleted automatically after 24 hours. The service is receive-only: you cannot send mail from an address.</p>
+
+<h2>How it is built</h2>
+<p>The site is a static web page hosted on Cloudflare. Incoming mail is received by Cloudflare Email Routing and handed to a small program running on Cloudflare Workers, which saves each message to a Cloudflare D1 database. A scheduled job deletes messages older than 24 hours every hour. We chose this setup because it keeps the service fast, inexpensive to run and free to use, and because it lets us delete data on a fixed schedule instead of keeping it indefinitely.</p>
+
+<h2>Our principles</h2>
+<ul>
+  <li><strong>Be honest about the limits.</strong> Inboxes have no password, so anyone with an exact address can read it. We say so on the home page and in our <a href="/terms/">Terms</a>. We also say what the service is not suitable for.</li>
+  <li><strong>Keep as little as possible.</strong> We do not ask for names or accounts, and we delete messages after 24 hours. See the <a href="/privacy/">Privacy Policy</a> for exactly what is processed.</li>
+  <li><strong>Prevent abuse.</strong> The service is receive-only, requests are rate-limited, and we act on reports sent to our <a href="/abuse/">abuse page</a>.</li>
+  <li><strong>Respect other websites.</strong> We do not help anyone get around other sites' rules. If a site rejects disposable addresses, that is its decision.</li>
+</ul>
+
+<h2>How the site is funded</h2>
+<p>Tempamail.org is free. Running it costs money for hosting and domains, so the site is supported by advertising, which may be provided by Google AdSense. Ads never change what appears in your inbox, and we do not read your messages to target ads.</p>
+
+<h2>Contact</h2>
+<p>Questions, feedback or press: <a href="mailto:contact@tempamail.org">contact@tempamail.org</a>. To report misuse: <a href="mailto:abuse@tempamail.org">abuse@tempamail.org</a>. More details are on the <a href="/contact/">contact page</a>.</p>

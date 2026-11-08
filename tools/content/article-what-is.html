@@ -1,0 +1,55 @@
+<p class="updated">Last updated {{UPDATED}}</p>
+
+<p>A temporary email address, also called a disposable or throwaway address, is an inbox you can use without signing up for anything. You get an address, give it to a website, read the message the website sends, and walk away. A day later the address and its messages are gone. This guide explains how that works behind the scenes, what it is good for, and where it falls short.</p>
+
+<h2>The short version</h2>
+<ul>
+  <li>You do not register. There is no username, password or personal detail involved.</li>
+  <li>The address is generated at random, so it is not linked to your name.</li>
+  <li>Mail sent to it is stored for a short time (24 hours on Tempamail.org), then deleted.</li>
+  <li>Most services, including ours, are receive-only: you can read mail but not send it.</li>
+</ul>
+
+<h2>How the address is created</h2>
+<p>On a normal email service, an address exists because someone created an account for it. Temporary email works the other way round. The service controls a whole domain, such as <code>tempamail.org</code>, and is set up to accept mail for <em>any</em> name at that domain. This is called a catch-all. Because every name is valid, no account has to be created in advance.</p>
+<p>When you open Tempamail.org, your browser picks ten random letters and digits using the browser's secure random number generator and puts them in front of the domain. That is your address. It is saved in your own browser so that reloading the page does not change it. Nothing about you is sent to a server to make this happen.</p>
+
+<h2>How a message reaches you</h2>
+<ol>
+  <li><strong>You use the address.</strong> You type it into a sign-up form on some website.</li>
+  <li><strong>The website sends an email.</strong> Its mail system looks up the <em>MX records</em> for our domain. These DNS records say which servers accept mail for the domain.</li>
+  <li><strong>Our mail provider receives it.</strong> The MX records point to Cloudflare, which accepts the message on our behalf.</li>
+  <li><strong>A small program saves it.</strong> It reads the sender, subject and body and stores them in a database, filed under the recipient address.</li>
+  <li><strong>Your browser asks for it.</strong> The inbox page asks for new messages for your address every ten seconds and shows what it finds.</li>
+</ol>
+<p>Everything after step 2 usually takes a second or two, which is why verification codes arrive almost instantly. Delays you see in practice usually come from the sending website, which may queue its emails.</p>
+
+<h2>Why the messages disappear</h2>
+<p>Keeping mail forever would defeat the point and cost money. Tempamail.org hides any message older than 24 hours immediately and runs an hourly cleanup that permanently deletes it. Pressing <strong>Delete</strong> on the page removes everything for your address on the spot. There is no archive and no way to restore a deleted message.</p>
+
+<h2>What it is good for</h2>
+<p>Disposable email works well when you need an address once and do not care about it afterwards: downloading a free resource, registering for a short trial, joining a forum to read one thread, or testing the sign-up flow of a website you are building. The sender gets a working address, you get your code, and your real inbox never joins a mailing list. We cover this in more detail in <a href="/articles/when-to-use-a-disposable-email/">when to use a disposable email and when not to</a>.</p>
+
+<h2>Limits you should know about</h2>
+<div class="callout"><strong>Anyone with the address can read the inbox.</strong> There is no password. A random ten-character name is very hard to guess, but if someone sees your address they can read what it received. Never use a temporary address for anything private.</div>
+<ul>
+  <li><strong>You cannot recover an account later.</strong> If a service sends a password-reset link to an address that no longer exists, you are locked out. Use a real address for anything you want to keep.</li>
+  <li><strong>Some sites block disposable domains.</strong> They keep lists and reject sign-ups from them. That is their right, and it is not something we can or should work around.</li>
+  <li><strong>Attachments and large messages are limited.</strong> Very large emails are rejected, and the inbox is designed for short text such as codes and confirmation links.</li>
+  <li><strong>It is not anonymity.</strong> The website you sign up to still sees your IP address and whatever else you give it. A temporary email only protects your <em>email address</em>.</li>
+</ul>
+
+<h2>Temporary email versus an alias</h2>
+<table>
+  <thead><tr><th></th><th>Temporary email</th><th>Email alias / forwarding</th></tr></thead>
+  <tbody>
+    <tr><td>Setup</td><td>None</td><td>Needs an account with a provider</td></tr>
+    <tr><td>Lasts</td><td>Hours</td><td>Until you delete it</td></tr>
+    <tr><td>Reaches your real inbox?</td><td>No</td><td>Yes, forwarded</td></tr>
+    <tr><td>Good for</td><td>One-off sign-ups</td><td>Accounts you want to keep but protect</td></tr>
+  </tbody>
+</table>
+<p>If you are going to keep an account long term, an alias that forwards to your real inbox is usually the better choice, because you can still reset your password later.</p>
+
+<h2>Bottom line</h2>
+<p>Temporary email is a simple tool: a catch-all domain, a short-lived inbox and automatic deletion. Used for low-stakes sign-ups, it keeps spam out of your real inbox. Used for anything important, it is the wrong tool. For more ways to keep your main inbox clean, read <a href="/articles/protect-your-inbox-from-spam/">9 practical ways to cut spam</a>.</p>

@@ -24,5 +24,13 @@ database_id = "99d306ce-ba5d-4be3-aaf4-a789fae565d7"
 pattern = "tempamail.org/api/*"
 zone_name = "tempamail.org"
 
+# Per-IP API rate limit (see src/index.js). period must be 10 or 60 seconds.
+[[ratelimits]]
+name = "API_LIMITER"
+namespace_id = "1001"
+  [ratelimits.simple]
+  limit = 60
+  period = 60
+
 [triggers]
 crons = ["17 * * * *"]

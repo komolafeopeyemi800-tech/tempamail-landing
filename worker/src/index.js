@@ -14,10 +14,21 @@ function allowedDomains(env) {
     .filter(Boolean);
 }
 
+// Role/system mailboxes. These can never be read through the public inbox API and
+// never accept mail through the Worker, so nobody can read abuse@/contact@ by
+// typing the address into the API. (Real mail to these is forwarded by dedicated
+// Email Routing rules, which take priority over the catch-all.)
+const RESERVED_LOCAL_PARTS = new Set([
+  'abuse', 'admin', 'administrator', 'contact', 'hostmaster', 'info', 'legal',
+  'mailer-daemon', 'noreply', 'no-reply', 'postmaster', 'privacy', 'root',
+  'security', 'support', 'webmaster', 'dmca', 'billing', 'help', 'hello', 'sales',
+]);
+
 function normalizeAddress(raw, env) {
   const addr = String(raw || '').trim().toLowerCase();
   if (!ADDRESS_RE.test(addr)) return null;
-  const domain = addr.split('@')[1];
+  const [local, domain] = addr.split('@');
+  if (RESERVED_LOCAL_PARTS.has(local)) return null;
   return allowedDomains(env).includes(domain) ? addr : null;
 }
 
@@ -78,6 +89,19 @@ export default {
   // ---------- Inbox API ----------
   async fetch(request, env) {
     const url = new URL(request.url);
+
+    // Per-IP rate limit (60 requests / minute). The page polls ~6 times a minute.
+    if (env.API_LIMITER) {
+      const ip = request.headers.get('cf-connecting-ip') || 'unknown';
+      const { success } = await env.API_LIMITER.limit({ key: ip });
+      if (!success) {
+        return new Response(JSON.stringify({ error: 'rate limited, slow down' }), {
+          status: 429,
+          headers: { 'content-type': 'application/json', 'retry-after': '60', 'cache-control': 'no-store' },
+        });
+      }
+    }
+
     const address = normalizeAddress(url.searchParams.get('address'), env);
     // Anything older than this is expired: hidden immediately, purged by the hourly cron.
     const cutoff = Date.now() - (Number(env.RETENTION_HOURS) || 24) * 60 * 60 * 1000;
