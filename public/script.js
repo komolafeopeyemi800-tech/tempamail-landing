@@ -5,43 +5,186 @@
 (function () {
   'use strict';
 
-  var REDIRECT_URL = 'https://tempbmail.com';
-  var DOMAINS = ['tempamail.org', 'tmpmail.net', 'quicktemp.email'];
+  // Must match DOMAINS in worker/wrangler.toml
+  var DOMAINS = ['tempamail.org'];
+  var POLL_SECONDS = 10;
+  var STORAGE_KEY = 'tempamail.address';
 
   function randomString(len) {
     var chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+    var bytes = new Uint8Array(len);
+    window.crypto.getRandomValues(bytes);
     var str = '';
     for (var i = 0; i < len; i++) {
-      str += chars.charAt(Math.floor(Math.random() * chars.length));
+      str += chars.charAt(bytes[i] % chars.length);
     }
     return str;
   }
 
   function generateEmail() {
-    var user = randomString(10);
     var domain = DOMAINS[Math.floor(Math.random() * DOMAINS.length)];
-    return user + '@' + domain;
+    return randomString(10) + '@' + domain;
   }
 
-  function maskEmail(email) {
-    var parts = email.split('@');
-    var user = parts[0];
-    var domain = parts[1];
-    var visibleCount = 3;
-    var visible = user.substring(0, visibleCount);
-    var hidden = user.substring(visibleCount);
-
-    return '<span class="email-visible">' + visible + '</span>' +
-           '<span class="email-hidden">' + hidden + '</span>' +
-           '<span class="email-visible">@' + domain + '</span>';
+  function loadEmail() {
+    try {
+      var saved = localStorage.getItem(STORAGE_KEY);
+      if (saved && DOMAINS.indexOf(saved.split('@')[1]) !== -1) return saved;
+    } catch (e) { /* storage blocked */ }
+    return null;
   }
 
-  // ---- Show a partially masked email in the widget ----
+  function saveEmail(email) {
+    try { localStorage.setItem(STORAGE_KEY, email); } catch (e) { /* ignore */ }
+  }
+
+  // ---- Address widget ----
   var emailEl = document.getElementById('emailAddress');
-  var currentEmail = generateEmail();
-  if (emailEl) {
-    emailEl.innerHTML = maskEmail(currentEmail);
+  var currentEmail = loadEmail() || generateEmail();
+  saveEmail(currentEmail);
+  if (emailEl) emailEl.textContent = currentEmail;
+
+  // ---- Live inbox ----
+  var inboxBody = document.getElementById('inboxBody');
+  var inboxEmpty = document.getElementById('inboxEmpty');
+  var msgList = document.getElementById('msgList');
+  var msgView = document.getElementById('msgView');
+  var msgFrame = document.getElementById('msgFrame');
+  var timerEl = document.getElementById('refreshTimer');
+  var countdown = POLL_SECONDS;
+  var openMessageId = null;
+
+  function api(path, opts) {
+    return fetch(path, opts).then(function (r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    });
   }
+
+  function timeAgo(ms) {
+    var s = Math.max(0, Math.round((Date.now() - ms) / 1000));
+    if (s < 60) return 'just now';
+    if (s < 3600) return Math.floor(s / 60) + ' min ago';
+    if (s < 86400) return Math.floor(s / 3600) + ' h ago';
+    return Math.floor(s / 86400) + ' d ago';
+  }
+
+  function el(tag, cls, text) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text != null) n.textContent = text;
+    return n;
+  }
+
+  function renderInbox(messages) {
+    if (!msgList) return;
+    msgList.textContent = '';
+    messages.forEach(function (m) {
+      var li = el('li');
+      var btn = el('button', 'msg-item');
+      btn.type = 'button';
+      var row = el('div', 'msg-row');
+      row.appendChild(el('span', 'msg-from', m.from_name || m.from_addr || 'Unknown sender'));
+      row.appendChild(el('span', 'msg-time', timeAgo(m.received_at)));
+      btn.appendChild(row);
+      btn.appendChild(el('div', 'msg-subj', m.subject || '(no subject)'));
+      if (m.preview) btn.appendChild(el('div', 'msg-preview', m.preview.replace(/\s+/g, ' ')));
+      btn.addEventListener('click', function () { openMessage(m.id); });
+      li.appendChild(btn);
+      msgList.appendChild(li);
+    });
+    var has = messages.length > 0;
+    msgList.hidden = !has || !!openMessageId;
+    inboxEmpty.hidden = has || !!openMessageId;
+    inboxBody.setAttribute('data-has-mail', has ? 'true' : 'false');
+  }
+
+  function escapeHtml(s) {
+    return s.replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  function openMessage(id) {
+    api('/api/message?address=' + encodeURIComponent(currentEmail) + '&id=' + encodeURIComponent(id))
+      .then(function (m) {
+        openMessageId = id;
+        document.getElementById('msgSubject').textContent = m.subject || '(no subject)';
+        document.getElementById('msgMeta').textContent =
+          'From ' + (m.from_name ? m.from_name + ' <' + m.from_addr + '>' : m.from_addr) +
+          ' · ' + new Date(m.received_at).toLocaleString();
+        // Sandboxed iframe (no scripts) + CSP that blocks remote images/trackers.
+        var csp = '<meta http-equiv="Content-Security-Policy" content="default-src \'none\'; style-src \'unsafe-inline\'; img-src data:">';
+        var body = m.html ? m.html : '<pre style="white-space:pre-wrap;font-family:inherit">' + escapeHtml(m.text || '') + '</pre>';
+        msgFrame.srcdoc = '<!doctype html><html><head><meta charset="utf-8">' + csp +
+          '<style>body{font-family:sans-serif;font-size:14px;margin:12px;word-wrap:break-word}</style></head><body>' +
+          body + '</body></html>';
+        msgList.hidden = true;
+        inboxEmpty.hidden = true;
+        msgView.hidden = false;
+      })
+      .catch(function () { /* keep list visible */ });
+  }
+
+  function closeMessage() {
+    openMessageId = null;
+    msgView.hidden = true;
+    msgFrame.srcdoc = '';
+    refreshInbox();
+  }
+
+  function refreshInbox() {
+    countdown = POLL_SECONDS;
+    if (timerEl) timerEl.textContent = countdown;
+    if (openMessageId) return; // don't disturb a message being read
+    api('/api/inbox?address=' + encodeURIComponent(currentEmail))
+      .then(function (data) { renderInbox(data.messages || []); })
+      .catch(function () { /* offline or API not deployed: leave inbox as is */ });
+  }
+
+  function setEmail(email) {
+    currentEmail = email;
+    saveEmail(email);
+    if (emailEl) emailEl.textContent = email;
+    openMessageId = null;
+    if (msgView) msgView.hidden = true;
+    renderInbox([]);
+    refreshInbox();
+  }
+
+  var copyBtn = document.getElementById('copyBtn');
+  var copyLabel = document.getElementById('copyLabel');
+  if (copyBtn) {
+    copyBtn.addEventListener('click', function () {
+      var done = function () {
+        copyLabel.textContent = 'Copied!';
+        setTimeout(function () { copyLabel.textContent = 'Copy'; }, 1500);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(currentEmail).then(done, function () {});
+      }
+    });
+  }
+
+  var newBtn = document.getElementById('newBtn');
+  if (newBtn) newBtn.addEventListener('click', function () { setEmail(generateEmail()); });
+
+  var deleteBtn = document.getElementById('deleteBtn');
+  if (deleteBtn) {
+    deleteBtn.addEventListener('click', function () {
+      api('/api/inbox?address=' + encodeURIComponent(currentEmail), { method: 'DELETE' })
+        .then(function () { closeMessage(); renderInbox([]); })
+        .catch(function () {});
+    });
+  }
+
+  var refreshBtn = document.getElementById('refreshBtn');
+  if (refreshBtn) refreshBtn.addEventListener('click', refreshInbox);
+
+  var msgBack = document.getElementById('msgBack');
+  if (msgBack) msgBack.addEventListener('click', closeMessage);
+
+  if (inboxBody) refreshInbox();
 
   // ---- Mobile nav toggle ----
   var navToggle = document.getElementById('navToggle');
@@ -86,19 +229,15 @@
 
   window.addEventListener('scroll', setActiveLink, { passive: true });
 
-  // ---- Inbox refresh timer (visual only) ----
-  var timerEl = document.getElementById('refreshTimer');
-  var countdown = 15;
-
+  // ---- Auto-refresh countdown ----
   if (timerEl) {
     setInterval(function () {
       countdown--;
       if (countdown <= 0) {
-        countdown = 15;
-        currentEmail = generateEmail();
-        if (emailEl) emailEl.innerHTML = maskEmail(currentEmail);
+        refreshInbox();
+      } else {
+        timerEl.textContent = countdown;
       }
-      timerEl.textContent = countdown;
     }, 1000);
   }
 

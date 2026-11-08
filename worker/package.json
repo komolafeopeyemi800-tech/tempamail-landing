@@ -1,0 +1,18 @@
+{
+  "name": "tempamail-mail",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Email Routing receiver + inbox API for Tempamail.org",
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev",
+    "db:init": "wrangler d1 execute tempamail --remote --file=./schema.sql",
+    "db:init:local": "wrangler d1 execute tempamail --local --file=./schema.sql"
+  },
+  "dependencies": {
+    "postal-mime": "^2.4.3"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  }
+}

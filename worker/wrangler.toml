@@ -1,0 +1,28 @@
+# Tempamail.org mail Worker
+#  - email():     receives mail from Cloudflare Email Routing (catch-all) and stores it in D1
+#  - fetch():     inbox API served at tempamail.org/api/*
+#  - scheduled(): hourly cleanup of expired messages
+
+name = "tempamail-mail"
+main = "src/index.js"
+compatibility_date = "2025-01-01"
+
+# Comma-separated list of domains this service accepts mail for.
+[vars]
+DOMAINS = "tempamail.org"
+RETENTION_HOURS = "24"
+
+# Created with: npx wrangler d1 create tempamail
+# Paste the printed database_id below.
+[[d1_databases]]
+binding = "DB"
+database_name = "tempamail"
+database_id = "99d306ce-ba5d-4be3-aaf4-a789fae565d7"
+
+# Serve the API on the same origin as the site so the page needs no CORS.
+[[routes]]
+pattern = "tempamail.org/api/*"
+zone_name = "tempamail.org"
+
+[triggers]
+crons = ["17 * * * *"]
