@@ -16,34 +16,46 @@ const body = (f) => readFileSync(join(ROOT, 'tools', 'content', f), 'utf8');
 
 const ARTICLES = [
   {
-    path: 'articles/what-is-a-temporary-email-address/',
-    file: 'article-what-is.html',
+    path: 'articles/what-is-a-temporary-email-address/', file: 'article-what-is.html', art: 'a', read: '7 min read',
     title: 'What Is a Temporary Email Address and How Does It Work?',
     short: 'What Is a Temporary Email Address and How Does It Work?',
-    desc: 'A plain-English explanation of disposable email: how the address is created, how messages arrive, how long they last and what the limits are.',
-    blurb: 'How a throwaway address is created, how mail reaches it, and why it disappears — explained without jargon.',
-    read: '6 min read',
-    art: 'a',
+    desc: 'How disposable email works from start to finish: how the address is created, how a message travels to the inbox, why it is deleted, and where the limits are.',
+    blurb: 'How a throwaway address is created, how mail reaches it, why it disappears, and the limits you should know.',
   },
   {
-    path: 'articles/protect-your-inbox-from-spam/',
-    file: 'article-spam.html',
+    path: 'articles/how-to-spot-a-phishing-email/', file: 'article-phishing.html', art: 'b', read: '8 min read',
+    title: 'How to Spot a Phishing Email: Red Flags and What to Do',
+    short: 'How to Spot a Phishing Email: Red Flags and What to Do',
+    desc: 'An annotated example of a phishing email, the warning signs to look for, what to do if you already clicked, and habits that make you harder to trick.',
+    blurb: 'An annotated example, the warning signs, and exactly what to do if you have already clicked.',
+  },
+  {
+    path: 'articles/check-if-your-email-was-in-a-data-breach/', file: 'article-breach.html', art: 'c', read: '8 min read',
+    title: 'How to Check If Your Email Was in a Data Breach (and What to Do Next)',
+    short: 'How to Check If Your Email Was in a Data Breach',
+    desc: 'Use Have I Been Pwned to check your addresses, understand what leaked, and follow a clear order of steps to secure your accounts.',
+    blurb: 'Check your address for free, understand what leaked, and secure your accounts in the right order.',
+  },
+  {
+    path: 'articles/temp-mail-vs-email-alias/', file: 'article-alias.html', art: 'd', read: '8 min read',
+    title: 'Temp Mail vs Email Aliases vs Plus-Addressing: Which Should You Use?',
+    short: 'Temp Mail vs Email Aliases vs Plus-Addressing',
+    desc: 'A side-by-side comparison of temporary inboxes, forwarding aliases, plus-addressing and catch-all domains, with advice for five common situations.',
+    blurb: 'Four ways to keep your real address private, compared side by side, with advice for common situations.',
+  },
+  {
+    path: 'articles/protect-your-inbox-from-spam/', file: 'article-spam.html', art: 'e', read: '8 min read',
     title: '9 Practical Ways to Cut Spam and Protect Your Real Inbox',
     short: '9 Practical Ways to Cut Spam and Protect Your Real Inbox',
-    desc: 'Simple habits that reduce spam and phishing: separate addresses, safer sign-ups, breach checks, and when a disposable email is the right tool.',
-    blurb: 'Separate addresses, smarter sign-ups, breach checks and other habits that keep your main inbox clean.',
-    read: '7 min read',
-    art: 'b',
+    desc: 'Nine habits that reduce spam and phishing: separate addresses, safer sign-ups, when unsubscribing is safe, breach checks and filters.',
+    blurb: 'Separate addresses, safer sign-ups, when unsubscribing is safe, and how to train your filter.',
   },
   {
-    path: 'articles/when-to-use-a-disposable-email/',
-    file: 'article-when.html',
+    path: 'articles/when-to-use-a-disposable-email/', file: 'article-when.html', art: 'f', read: '8 min read',
     title: 'When to Use a Disposable Email — and When Not To',
     short: 'When to Use a Disposable Email — and When Not To',
-    desc: 'A realistic guide to the good and bad uses of temporary email: free downloads and one-off sign-ups are fine, banking and account recovery are not.',
-    blurb: 'Good uses, bad uses, and the one rule that matters: never rely on a throwaway address for anything you need later.',
-    read: '6 min read',
-    art: 'c',
+    desc: 'A realistic guide to the good and bad uses of temporary email, with a three-question test and a table of common situations.',
+    blurb: 'A three-question test, good and bad uses, and the one rule that matters before you sign up.',
   },
 ];
 
@@ -130,7 +142,7 @@ function wrap(page, inner) {
   <meta property="og:description" content="${esc(page.desc)}">
   <meta property="og:url" content="${url}">
   <meta name="twitter:card" content="summary">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230f9d8a'/%3E%3Cpath d='M7 10h18v12H7zM7 10l9 7 9-7' fill='none' stroke='white' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%236a4cff'/%3E%3Cpath d='M7 10h18v12H7zM7 10l9 7 9-7' fill='none' stroke='white' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -149,15 +161,19 @@ ${footer()}
 
 const ART_SVG = {
   a: '<svg viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M22 7l-10 7L2 7"/></svg>',
-  b: '<svg viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg>',
-  c: '<svg viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
+  b: '<svg viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17h.01"/></svg>',
+  c: '<svg viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg>',
+  d: '<svg viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 006 0v-1a10 10 0 10-4 8"/></svg>',
+  e: '<svg viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg>',
+  f: '<svg viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
 };
+const ART_CLASS = { a: '', b: 'card-art--b', c: 'card-art--c', d: 'card-art--d', e: 'card-art--e', f: 'card-art--b' };
 
 function cards(list) {
   return `<div class="cards">${list.map((a) => `
   <a class="card" href="/${a.path}">
     <div><h3>${esc(a.short)}</h3><p>${esc(a.blurb)}</p><div class="meta">${a.read}</div></div>
-    <div class="card-art ${a.art === 'b' ? 'card-art--b' : a.art === 'c' ? 'card-art--c' : ''}" aria-hidden="true">${ART_SVG[a.art]}</div>
+    <div class="card-art ${ART_CLASS[a.art]}" aria-hidden="true">${ART_SVG[a.art]}</div>
   </a>`).join('')}</div>`;
 }
 

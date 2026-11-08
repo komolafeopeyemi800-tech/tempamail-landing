@@ -14,7 +14,7 @@
   <meta property="og:description" content="Get a free temporary email address instantly. No sign-up, no password. Receive verification codes and messages in a disposable inbox that deletes itself after 24 hours.">
   <meta property="og:url" content="https://tempamail.org/">
   <meta name="twitter:card" content="summary">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230f9d8a'/%3E%3Cpath d='M7 10h18v12H7zM7 10l9 7 9-7' fill='none' stroke='white' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%236a4cff'/%3E%3Cpath d='M7 10h18v12H7zM7 10l9 7 9-7' fill='none' stroke='white' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -33,14 +33,16 @@
     <div class="ad ad--rect" data-ad-slot="hero-left"></div>
 
     <div class="addr-card">
-      <h1>Your Free Temporary Email Address</h1>
-      <div class="addr-row">
-        <span class="addr-text" id="emailAddress" aria-live="polite">loading…</span>
-        <button type="button" class="icon-btn js-copy" aria-label="Copy email address" title="Copy">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-        </button>
-      </div>
-      <p class="addr-note">Use this address for sign-ups and verification codes. Anything sent to it appears below within seconds and is deleted after 24 hours. Receive-only.</p>
+      <div class="addr-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2.5"/><path d="M22 7l-10 7L2 7"/></svg></div>
+      <div class="addr-label">Free temp mail</div>
+      <h1>Your temporary email address</h1>
+      <span class="addr-text" id="emailAddress" aria-live="polite">loading…</span>
+      <button type="button" class="addr-copy js-copy">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+        <span class="copy-label">Copy address</span>
+      </button>
+      <div class="addr-meta"><span><i class="dot-live"></i> Live inbox</span><span>Deleted after 24 hours</span><span>Receive-only</span></div>
+      <p class="addr-note">Paste it into a sign-up form. Messages show up below within seconds.</p>
     </div>
 
     <div class="ad ad--rect" data-ad-slot="hero-right"></div>
@@ -51,7 +53,7 @@
   <div class="wrap">
     <button type="button" class="pill js-copy">
       <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-      <span id="copyLabel">Copy</span>
+      <span class="copy-label">Copy</span>
     </button>
     <button type="button" class="pill" id="refreshBtn">
       <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>
@@ -111,16 +113,28 @@
     <h2 class="section-title">Popular Articles</h2>
     <div class="cards">
   <a class="card" href="/articles/what-is-a-temporary-email-address/">
-    <div><h3>What Is a Temporary Email Address and How Does It Work?</h3><p>How a throwaway address is created, how mail reaches it, and why it disappears — explained without jargon.</p><div class="meta">6 min read</div></div>
+    <div><h3>What Is a Temporary Email Address and How Does It Work?</h3><p>How a throwaway address is created, how mail reaches it, why it disappears, and the limits you should know.</p><div class="meta">7 min read</div></div>
     <div class="card-art " aria-hidden="true"><svg viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M22 7l-10 7L2 7"/></svg></div>
   </a>
+  <a class="card" href="/articles/how-to-spot-a-phishing-email/">
+    <div><h3>How to Spot a Phishing Email: Red Flags and What to Do</h3><p>An annotated example, the warning signs, and exactly what to do if you have already clicked.</p><div class="meta">8 min read</div></div>
+    <div class="card-art card-art--b" aria-hidden="true"><svg viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17h.01"/></svg></div>
+  </a>
+  <a class="card" href="/articles/check-if-your-email-was-in-a-data-breach/">
+    <div><h3>How to Check If Your Email Was in a Data Breach</h3><p>Check your address for free, understand what leaked, and secure your accounts in the right order.</p><div class="meta">8 min read</div></div>
+    <div class="card-art card-art--c" aria-hidden="true"><svg viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg></div>
+  </a>
+  <a class="card" href="/articles/temp-mail-vs-email-alias/">
+    <div><h3>Temp Mail vs Email Aliases vs Plus-Addressing</h3><p>Four ways to keep your real address private, compared side by side, with advice for common situations.</p><div class="meta">8 min read</div></div>
+    <div class="card-art card-art--d" aria-hidden="true"><svg viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 006 0v-1a10 10 0 10-4 8"/></svg></div>
+  </a>
   <a class="card" href="/articles/protect-your-inbox-from-spam/">
-    <div><h3>9 Practical Ways to Cut Spam and Protect Your Real Inbox</h3><p>Separate addresses, smarter sign-ups, breach checks and other habits that keep your main inbox clean.</p><div class="meta">7 min read</div></div>
-    <div class="card-art card-art--b" aria-hidden="true"><svg viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></div>
+    <div><h3>9 Practical Ways to Cut Spam and Protect Your Real Inbox</h3><p>Separate addresses, safer sign-ups, when unsubscribing is safe, and how to train your filter.</p><div class="meta">8 min read</div></div>
+    <div class="card-art card-art--e" aria-hidden="true"><svg viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></div>
   </a>
   <a class="card" href="/articles/when-to-use-a-disposable-email/">
-    <div><h3>When to Use a Disposable Email — and When Not To</h3><p>Good uses, bad uses, and the one rule that matters: never rely on a throwaway address for anything you need later.</p><div class="meta">6 min read</div></div>
-    <div class="card-art card-art--c" aria-hidden="true"><svg viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+    <div><h3>When to Use a Disposable Email — and When Not To</h3><p>A three-question test, good and bad uses, and the one rule that matters before you sign up.</p><div class="meta">8 min read</div></div>
+    <div class="card-art card-art--b" aria-hidden="true"><svg viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
   </a></div>
   </div>
 </section>
@@ -164,6 +178,8 @@
     </div>
   </div>
 </section>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <footer class="footer"><div class="wrap">
   <ul class="footer-links">

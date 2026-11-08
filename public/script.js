@@ -75,6 +75,16 @@
     if (text != null) n.textContent = text;
     return n;
   }
+  var toastEl = document.getElementById('toast');
+  var toastTimer;
+  function toast(msg) {
+    if (!toastEl) return;
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { toastEl.classList.remove('show'); }, 2200);
+  }
+
   function timeAgo(ms) {
     var s = Math.max(0, Math.round((Date.now() - ms) / 1000));
     if (s < 60) return 'just now';
@@ -138,10 +148,10 @@
   function refreshInbox() {
     countdown = POLL_SECONDS;
     if (timerEl) timerEl.textContent = countdown;
-    if (openMessageId) return; // don't disturb a message being read
-    api('/api/inbox?address=' + encodeURIComponent(currentEmail))
-      .then(function (d) { renderInbox(d.messages || []); })
-      .catch(function () { /* offline / rate limited: keep what is shown */ });
+    if (openMessageId) return Promise.resolve(null); // don't disturb a message being read
+    return api('/api/inbox?address=' + encodeURIComponent(currentEmail))
+      .then(function (d) { renderInbox(d.messages || []); return d.messages || []; })
+      .catch(function (e) { return e; }); // offline / rate limited: keep what is shown
   }
 
   function setEmail(v) {
@@ -158,24 +168,55 @@
   saveEmail(currentEmail);
   emailEl.textContent = currentEmail;
 
-  // Copy buttons (round icon + pill)
+  // Copy buttons
+  function copyText(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) return navigator.clipboard.writeText(text);
+    return new Promise(function (resolve, reject) {
+      var ta = document.createElement('textarea');
+      ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy') ? resolve() : reject(); } catch (e) { reject(e); }
+      document.body.removeChild(ta);
+    });
+  }
   document.querySelectorAll('.js-copy').forEach(function (btn) {
     btn.addEventListener('click', function () {
-      if (!(navigator.clipboard && navigator.clipboard.writeText)) return;
-      navigator.clipboard.writeText(currentEmail).then(function () {
-        var label = document.getElementById('copyLabel');
-        if (label) { label.textContent = 'Copied!'; setTimeout(function () { label.textContent = 'Copy'; }, 1500); }
-      }, function () {});
+      copyText(currentEmail).then(function () {
+        toast('Copied ' + currentEmail);
+        var label = btn.querySelector('.copy-label');
+        if (label) {
+          var old = label.textContent;
+          label.textContent = 'Copied!';
+          setTimeout(function () { label.textContent = old; }, 1500);
+        }
+      }, function () { toast('Press Ctrl+C to copy the address'); });
     });
   });
 
-  document.getElementById('newBtn').addEventListener('click', function () { setEmail(generateEmail()); });
-  document.getElementById('refreshBtn').addEventListener('click', refreshInbox);
+  var refreshBtn = document.getElementById('refreshBtn');
+  refreshBtn.addEventListener('click', function () {
+    refreshBtn.classList.add('is-spinning');
+    var started = Date.now();
+    refreshInbox().then(function (res) {
+      var wait = Math.max(0, 600 - (Date.now() - started)); // keep the spinner visible
+      setTimeout(function () {
+        refreshBtn.classList.remove('is-spinning');
+        if (res instanceof Error) toast('Could not refresh. Try again in a moment.');
+        else if (res && res.length) toast(res.length + (res.length === 1 ? ' message' : ' messages') + ' in your inbox');
+        else toast('Inbox refreshed. No new messages yet.');
+      }, wait);
+    });
+  });
+
+  document.getElementById('newBtn').addEventListener('click', function () {
+    setEmail(generateEmail());
+    toast('New address: ' + currentEmail);
+  });
   document.getElementById('msgBack').addEventListener('click', closeMessage);
   document.getElementById('deleteBtn').addEventListener('click', function () {
     api('/api/inbox?address=' + encodeURIComponent(currentEmail), { method: 'DELETE' })
-      .then(function () { closeMessage(); renderInbox([]); })
-      .catch(function () {});
+      .then(function () { openMessageId = null; msgView.hidden = true; msgFrame.srcdoc = ''; renderInbox([]); toast('All messages deleted'); })
+      .catch(function () { toast('Could not delete. Try again in a moment.'); });
   });
 
   // Auto-refresh, paused while the tab is hidden (saves requests).

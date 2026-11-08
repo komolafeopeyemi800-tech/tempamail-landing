@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Check If Your Email Was in a Data Breach (and What to Do Next)</title>
+  <meta name="description" content="Use Have I Been Pwned to check your addresses, understand what leaked, and follow a clear order of steps to secure your accounts.">
+  <link rel="canonical" href="https://tempamail.org/articles/check-if-your-email-was-in-a-data-breach/">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="google-site-verification" content="oBZ8DbXvNsUekyocOZbECuA-1737lQjK3mz6JDi4x0A">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Tempamail.org">
+  <meta property="og:title" content="How to Check If Your Email Was in a Data Breach (and What to Do Next)">
+  <meta property="og:description" content="Use Have I Been Pwned to check your addresses, understand what leaked, and follow a clear order of steps to secure your accounts.">
+  <meta property="og:url" content="https://tempamail.org/articles/check-if-your-email-was-in-a-data-breach/">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%236a4cff'/%3E%3Cpath d='M7 10h18v12H7zM7 10l9 7 9-7' fill='none' stroke='white' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"How to Check If Your Email Was in a Data Breach (and What to Do Next)","description":"Use Have I Been Pwned to check your addresses, understand what leaked, and follow a clear order of steps to secure your accounts.","datePublished":"2026-11-08","dateModified":"2026-11-08","mainEntityOfPage":"https://tempamail.org/articles/check-if-your-email-was-in-a-data-breach/","author":{"@type":"Organization","name":"Tempamail.org"},"publisher":{"@type":"Organization","name":"Tempamail.org","url":"https://tempamail.org/"}}</script>
+</head>
+<body>
+<header class="topbar"><div class="wrap">
+  <a class="brand" href="/" aria-label="Tempamail.org home"><span class="brand-mark"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4L12 13 2 4"/></svg></span><span>Temp<b>amail</b></span></a>
+  <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false" aria-controls="nav"><span></span><span></span><span></span></button>
+  <ul class="nav" id="nav"><li><a href="/">Home</a></li><li><a href="/articles/" aria-current="page">Articles</a></li><li><a href="/about/">About</a></li><li><a href="/contact/">Contact</a></li><li><a href="/privacy/">Privacy</a></li></ul>
+</div></header>
+<div class="page-head"><div class="wrap wrap--narrow"><div class="crumbs"><a href="/">Home</a> / <a href="/articles/">Articles</a></div><h1>How to Check If Your Email Was in a Data Breach (and What to Do Next)</h1><p>Use Have I Been Pwned to check your addresses, understand what leaked, and follow a clear order of steps to secure your accounts.</p></div></div>
+<main class="wrap wrap--narrow"><article class="page-body prose">
+<div class="byline"><span>By <strong>Tempamail.org Editorial Team</strong></span><span>Updated November 8, 2026</span><span>8 min read</span></div>
+
+<p>Sooner or later, almost everyone who has used the internet for a few years finds their email address in a data breach. It does not mean you did anything wrong. It means a company you trusted with your details, perhaps years ago and for something trivial, was hacked or leaked, and your address was in the database. The useful question is not "how do I make sure it never happens" but "how do I find out, and what do I do next?" This guide walks through both, in plain steps, and explains how to limit the damage the next time a service you use gets breached.</p>
+
+<div class="takeaways">
+  <h2>Key takeaways</h2>
+  <ul>
+    <li>You can check any email address for free at Have I Been Pwned (haveibeenpwned.com).</li>
+    <li>What you should do depends on <em>what</em> leaked: an email address alone is low risk, a password is serious, financial or identity data is urgent.</li>
+    <li>Change the password for the breached service and every other account where you reused it, then turn on two-factor authentication.</li>
+    <li>Using a different address for different services shows you who leaked your data and limits the blast radius.</li>
+  </ul>
+</div>
+
+<h2>What a data breach is</h2>
+<p>A data breach happens when information held by an organisation is accessed or published without permission. It can result from hackers exploiting a flaw, from a stolen employee password, or from something as simple as a database left open on the internet. The stolen records, which can include email addresses, usernames, hashed or plain-text passwords, phone numbers, dates of birth and sometimes payment or identity details, are then traded or posted publicly. Anyone can later search those collections, which is exactly what attackers do: they take the leaked pairs of email and password and try them on other websites, an attack called credential stuffing.</p>
+
+<h2>Step 1: check whether your address is in a known breach</h2>
+<p><a href="https://haveibeenpwned.com" rel="noopener noreferrer" target="_blank">Have I Been Pwned</a> (HIBP) is a free service created and maintained by security researcher Troy Hunt. You type in an email address and it tells you which known breaches include it. You can also subscribe an address to be notified if it appears in a future breach.</p>
+<p>HIBP covers breaches that have become known and been added to its index, so a clean result means "not found in what we know about", not "guaranteed safe". Check every address you use, including old ones.</p>
+
+<h3>A separate check for passwords</h3>
+<p>HIBP also runs a service called Pwned Passwords, which tells you if a particular password has appeared in a breach. It is designed so that your password never leaves your device: your browser calculates a cryptographic hash of the password and sends only the first five characters of it. The service returns every known hash starting with those characters, and your browser compares the rest locally. Troy Hunt explains the technique, known as k-anonymity, in <a href="https://www.troyhunt.com/understanding-have-i-been-pwneds-use-of-sha-1-and-k-anonymity/" rel="noopener noreferrer" target="_blank">this article</a>. Many password managers use the same service to warn you about reused or leaked passwords.</p>
+
+<h2>Step 2: work out what was exposed</h2>
+<p>The breach listing on HIBP shows which kinds of data were in each breach. The risk is very different depending on what was taken:</p>
+<table>
+  <thead><tr><th>What leaked</th><th>Risk</th><th>What to do</th></tr></thead>
+  <tbody>
+    <tr><td>Email address only</td><td>Low. You may get more spam and phishing aimed at that address.</td><td>Be alert for suspicious email; consider retiring the address for sensitive uses.</td></tr>
+    <tr><td>Email and password</td><td>High if you reused the password anywhere.</td><td>Change it now on that site and every site where you used it. Turn on two-factor authentication.</td></tr>
+    <tr><td>Phone number, date of birth, address</td><td>Medium. Useful to scammers for convincing impersonation.</td><td>Be wary of calls and texts that quote your details; do not trust them as proof of identity.</td></tr>
+    <tr><td>Card or bank details</td><td>High</td><td>Contact your bank or card issuer, block the card and watch statements.</td></tr>
+    <tr><td>Government ID or Social Security number</td><td>Very high</td><td>Follow your country's identity-theft process; in the U.S., use IdentityTheft.gov and consider a credit freeze.</td></tr>
+  </tbody>
+</table>
+
+<h2>Step 3: secure your accounts, in this order</h2>
+<ol>
+  <li><strong>Your email account first.</strong> It is the key to every other account because password-reset links go there. Give it a long, unique password and turn on two-factor authentication.</li>
+  <li><strong>The breached service.</strong> Change the password and look at its security settings for unfamiliar logins or connected devices.</li>
+  <li><strong>Any account that shared that password.</strong> This is where the real damage happens. Attackers automatically try leaked passwords on banks, shops and social networks within hours.</li>
+  <li><strong>Financial accounts.</strong> Review recent transactions and set up alerts.</li>
+</ol>
+
+<h3>What a good password looks like now</h3>
+<p>Guidance from the U.S. National Institute of Standards and Technology (NIST, document SP 800-63B) has moved away from the old advice. In short: <strong>length matters more than odd symbols</strong>, passwords should be checked against lists of known breached passwords, and there is no benefit in forcing people to change passwords on a calendar. Change a password when you have reason to think it is compromised, such as after a breach. In practice, let a password manager generate a long random password for every site and remember them for you.</p>
+
+<h3>Prefer passkeys and authenticator apps</h3>
+<p>Two-factor authentication stops most credential-stuffing attacks even when the password is known. An authenticator app or a hardware security key is stronger than a text message. Passkeys, which many major services now offer, replace the password entirely and are designed to resist phishing.</p>
+
+<h2>Step 4: expect follow-up scams</h2>
+<p>After a breach, criminals know your name, your email and the service you used. Messages that mention a real purchase or account feel convincing. Be extra careful with "we are sorry about the breach, click here to verify your account" emails: some of them are genuine notices, but many are phishing. Go to the company's website directly instead of using the link. Our guide to <a href="/articles/how-to-spot-a-phishing-email/">spotting a phishing email</a> covers the signs.</p>
+
+<h2>Step 5: reduce the damage next time</h2>
+<p>You cannot stop companies from being breached, but you can arrange things so a breach costs you less.</p>
+<ul>
+  <li><strong>Use unique passwords everywhere.</strong> This is the single most effective step because it turns a breach of one site into a problem for one site.</li>
+  <li><strong>Use different email addresses for different purposes.</strong> If one address keeps appearing in breaches or spam, you know where it came from and you can retire it. Aliases and plus-addresses make this practical; see <a href="/articles/temp-mail-vs-email-alias/">temp mail versus email aliases</a>.</li>
+  <li><strong>Give less data in the first place.</strong> Skip optional fields. Use a <a href="/">temporary email address</a> for services you only need once, so a breach at that service reveals nothing that links back to you.</li>
+  <li><strong>Delete accounts you no longer use.</strong> Data that does not exist cannot be leaked. Many privacy laws, such as the EU's GDPR and California's CCPA, give you the right to ask a company to delete your data.</li>
+</ul>
+
+<h2>Common myths</h2>
+<ul>
+  <li><strong>"I'm in a breach, so my email has been hacked."</strong> No. The company was breached, not your mailbox. Your account is at risk only if you reused the leaked password.</li>
+  <li><strong>"Changing my password every month keeps me safe."</strong> Not according to current NIST guidance. Unique, long passwords plus two-factor authentication are better than frequent changes.</li>
+  <li><strong>"Nobody wants my data."</strong> Attacks are automated. Your account is a target because it exists, not because of who you are.</li>
+</ul>
+
+<h2>A five-minute action plan</h2>
+<ol>
+  <li>Search your main address at Have I Been Pwned.</li>
+  <li>Install a password manager and change the password on your email account.</li>
+  <li>Turn on two-factor authentication on email, banking and any account that holds money.</li>
+  <li>Subscribe your addresses to breach notifications.</li>
+  <li>Start using a separate address for sign-ups you do not need to keep.</li>
+</ol>
+
+<ul class="sources">
+  <li class="sources-title"><strong>Sources and further reading</strong></li>
+  <li><a href="https://haveibeenpwned.com" rel="noopener noreferrer" target="_blank">Have I Been Pwned</a> (Troy Hunt)</li>
+  <li><a href="https://www.troyhunt.com/understanding-have-i-been-pwneds-use-of-sha-1-and-k-anonymity/" rel="noopener noreferrer" target="_blank">Understanding Have I Been Pwned's Use of SHA-1 and k-Anonymity</a></li>
+  <li><a href="https://pages.nist.gov/800-63-3/sp800-63b.html" rel="noopener noreferrer" target="_blank">NIST SP 800-63B: Digital Identity Guidelines, Authentication and Lifecycle Management</a></li>
+  <li><a href="https://www.identitytheft.gov" rel="noopener noreferrer" target="_blank">IdentityTheft.gov</a> (U.S. Federal Trade Commission)</li>
+</ul>
+
+<div class="try-box"><div><strong>Need a throwaway address right now?</strong><span>Free, no sign-up. Messages are deleted after 24 hours.</span></div><a class="btn" href="/">Get a temp email</a></div>
+</article></main>
+<footer class="footer"><div class="wrap">
+  <ul class="footer-links">
+    <li><a href="/privacy/">Privacy</a></li><li><a href="/terms/">Terms</a></li><li><a href="/about/">About</a></li>
+    <li><a href="/articles/">Articles</a></li><li><a href="/contact/">Contact</a></li><li><a href="/abuse/">Report abuse</a></li>
+  </ul>
+  <p>Tempamail.org provides free, receive-only temporary email addresses. Messages are deleted automatically after 24 hours. Do not use temporary addresses for banking, account recovery or anything you may need later.</p>
+  <p>&copy; 2026 Tempamail.org. All rights reserved.</p>
+</div></footer>
+<script src="/script.js" defer></script>
+</body>
+</html>

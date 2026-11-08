@@ -4,14 +4,16 @@
     <div class="ad ad--rect" data-ad-slot="hero-left"></div>
 
     <div class="addr-card">
-      <h1>Your Free Temporary Email Address</h1>
-      <div class="addr-row">
-        <span class="addr-text" id="emailAddress" aria-live="polite">loading…</span>
-        <button type="button" class="icon-btn js-copy" aria-label="Copy email address" title="Copy">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-        </button>
-      </div>
-      <p class="addr-note">Use this address for sign-ups and verification codes. Anything sent to it appears below within seconds and is deleted after 24 hours. Receive-only.</p>
+      <div class="addr-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2.5"/><path d="M22 7l-10 7L2 7"/></svg></div>
+      <div class="addr-label">Free temp mail</div>
+      <h1>Your temporary email address</h1>
+      <span class="addr-text" id="emailAddress" aria-live="polite">loading…</span>
+      <button type="button" class="addr-copy js-copy">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+        <span class="copy-label">Copy address</span>
+      </button>
+      <div class="addr-meta"><span><i class="dot-live"></i> Live inbox</span><span>Deleted after 24 hours</span><span>Receive-only</span></div>
+      <p class="addr-note">Paste it into a sign-up form. Messages show up below within seconds.</p>
     </div>
 
     <div class="ad ad--rect" data-ad-slot="hero-right"></div>
@@ -22,7 +24,7 @@
   <div class="wrap">
     <button type="button" class="pill js-copy">
       <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-      <span id="copyLabel">Copy</span>
+      <span class="copy-label">Copy</span>
     </button>
     <button type="button" class="pill" id="refreshBtn">
       <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>
@@ -123,3 +125,5 @@
     </div>
   </div>
 </section>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
